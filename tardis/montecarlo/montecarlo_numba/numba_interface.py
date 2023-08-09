@@ -145,7 +145,10 @@ def opacity_state_initialize(plasma, line_interaction_type):
     line_interaction_type : enum
     """
 
-    electron_densities = plasma.electron_densities.values
+    if plasma.nlte_ionization_species:
+        electron_densities = plasma.electron_densities_nlte.values
+    else:
+        electron_densities = plasma.electron_densities.values
     t_electrons = plasma.t_electrons
     line_list_nu = plasma.atomic_data.lines.nu.values
     tau_sobolev = np.ascontiguousarray(
